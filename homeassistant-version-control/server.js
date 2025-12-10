@@ -24,6 +24,7 @@ import { promises as fsPromises } from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import yaml from 'js-yaml';
+import { execSync } from 'child_process';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -67,6 +68,18 @@ const HOST = process.env.HOST || '0.0.0.0';
 if (!process.env.HOME) {
   process.env.HOME = '/tmp';
   console.log('[init] Set HOME=/tmp for git compatibility');
+}
+
+// Configure git at runtime (safe.directory and identity)
+// This must happen AFTER HOME is set, since git config --global writes to $HOME/.gitconfig
+try {
+  execSync('git config --global --add safe.directory /config', { stdio: 'pipe' });
+  execSync('git config --global --add safe.directory /usr/src/app', { stdio: 'pipe' });
+  execSync('git config --global user.email "havc@local"', { stdio: 'pipe' });
+  execSync('git config --global user.name "Home Assistant Version Control"', { stdio: 'pipe' });
+  console.log('[init] Git configured: safe.directory and identity set');
+} catch (e) {
+  console.error('[init] Failed to configure git:', e.message);
 }
 
 app.use(express.json());
