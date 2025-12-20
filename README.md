@@ -105,7 +105,7 @@ docker run -d \
   -e SUPERVISOR_TOKEN=your_long_lived_access_token_here \
   -e HA_URL=http://homeassistant.local:8123 \
   --name home-assistant-version-control \
-  ghcr.io/saihgupr/home-assistant-version-control:latest
+  ghcr.io/diggingfordinos/home-assistant-version-control:latest
 ```
 
 Replace `/path/to/your/config` with the actual path to your Home Assistant configuration directory.
@@ -251,7 +251,7 @@ curl -X POST http://homeassistant.local:54001/api/retention/cleanup \
 
 ## Alternative Options
 
-For a simpler backup approach that stores everything as plain YAML folders, check out [Home Assistant Time Machine](https://github.com/saihgupr/HomeAssistantTimeMachine). It gives you a clean interface to view YAML backups and restore individual items with a click.
+For a simpler backup approach that stores everything as plain YAML folders, check out [Home Assistant Time Machine](https://github.com/diggingfordinos/HomeAssistantTimeMachine). It gives you a clean interface to view YAML backups and restore individual items with a click.
 
 ##  Support
 
